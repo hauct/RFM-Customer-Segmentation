@@ -8,28 +8,6 @@ WITH rfm_cal AS(
 	where customer_id <> 0 
 	GROUP BY customer_id
 	HAVING sum(gmv) <> 0),
--- rfm_score AS (
--- SELECT *,
--- CASE 
--- 	WHEN recency >= '92' THEN '1'
--- 	WHEN recency BETWEEN '62' AND '91' THEN '2'
--- 	WHEN recency BETWEEN '31' AND '61' THEN '3'
--- 	WHEN recency BETWEEN '1' AND '30' THEN '4'
--- END AS r,
--- CASE 
--- 	WHEN frequency <= '2' THEN '1'
--- 	WHEN frequency = '3' THEN '2'
--- 	WHEN frequency = '4' THEN '3'
--- 	WHEN frequency >= '5' THEN '4'
--- END AS f,
--- CASE 
--- 	WHEN monetary <= '210000' THEN '1'
--- 	WHEN monetary BETWEEN '210000' AND '266693' THEN '2'
--- 	WHEN monetary BETWEEN '266694' AND '300000' THEN '3'
--- 	WHEN monetary >= '300000' THEN '4'
--- END AS m
--- FROM rfm_cal
--- ),
 rfm_score as (
 select *,
 NTILE(4) OVER (ORDER BY recency desc) as r,
@@ -56,9 +34,7 @@ FROM rfm_all
 )
 
 /* Count number of customers and revenue for each segment */
-SELECT segment, COUNT(customer_id) AS NUM
+SELECT segment, COUNT(customer_id) AS num, SUM(monetary) AS rev
 FROM rfm_all_2
 GROUP BY segment
 ORDER BY NUM DESC
-
--- SELECT COUNT (DISTINCT customer_id) FROM transactions
