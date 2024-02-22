@@ -81,7 +81,7 @@ The purpose of this project is to prepare a report on customer segmentation base
 ![customer_segment_dash.png](imgs/customer_segment_dash.png)
 
 6. Do report
-- Please view this [here](RFM-Customer-Segmentation\report\customer_segment_report.pdf)
+- Please view this [here](report/customer_segment_report.pdf)
 
 And this is the end of my project. Thanks for reading.
 
